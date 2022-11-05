@@ -16,16 +16,23 @@
 		alt="Welcome"
 	/>
 
-	<div class="mainbuttons flex justify-center flex-wrap w-full max-w-[600px] gap-10 ">
-		<a href="/bot?journaling"> My Journal 🗒️ </a>
+	<div
+		class="mainbuttons flex flex-col sm:flex-row sm:flex-wrap justify-center items-center w-full max-w-[600px] gap-10 p-10"
+	>
+		<a href="/bot?journaling"> My Journal <span>🗒️</span> </a>
 		<a class="panic" href="/panic"> Panic! </a>
-		<a href="/bot?assessment"> Quick tests ✎ </a>
-		<a href="/about"> Upgrade your mind 💎 </a>
-		<a href="/marketplace"> Online therapy 🎔 </a>
+		<a href="/bot?assessment"> Quick tests <span>✎</span> </a>
+		<a href="/about"> Upgrade your mind <span>💎</span> </a>
+		<a href="/marketplace"> Online therapy <span>🎔</span> </a>
 	</div>
 </section>
 
 <style>
+	.mainbuttons a {
+		max-width: 200px;
+		@apply w-full sm:w-auto;
+	}
+
 	.panic {
 		cursor: pointer;
 		flex-grow: 1;
@@ -33,10 +40,10 @@
 		padding: 2%;
 		text-decoration: none;
 		color: white;
-		background-color: rgba(255, 0, 0, 0.8) !important;
+		background-color: rgba(255, 128, 31, 0.8) !important;
 	}
 	.panic:hover {
-		background-color: red !important;
+		background-color: rgba(255, 128, 31, 1) !important;
 	}
 
 	section {

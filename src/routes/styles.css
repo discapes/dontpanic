@@ -65,6 +65,11 @@ a:hover {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.mainbuttons a span {
+	color: transparent;
+	text-shadow: 0 0 0 rgb(255, 184, 129);
+}
+
 .mainbuttons a:hover {
 	background-color: rgb(252, 252, 252);
 }
