@@ -40,6 +40,12 @@
 		</a>
 		<a
 			class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink"
+			href="/bot?log"
+		>
+			Chat log
+		</a>
+		<a
+			class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink"
 			href="/about"
 		>
 			About us

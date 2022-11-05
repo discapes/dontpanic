@@ -94,7 +94,9 @@ export function getAssessmentSession() {
 			opts.map((f) => f.shortName)
 		);
 
-		for (const q of opts.find((f) => f.shortName == assmt).questions) {
+		const quiz = opts.find((f) => f.shortName == assmt);
+		const answers = [];
+		for (const q of quiz.questions) {
 			if (q.type == 'integer') {
 				const range = (min, max) => {
 					let list = [];
@@ -104,9 +106,17 @@ export function getAssessmentSession() {
 					return list;
 				};
 				const opts = range(q.min, q.max);
-				await s.askFrom(q.text, opts);
+				const res = await s.askFrom(q.text, opts);
+				answers.push({ uuid: q.uuid, value: res });
 			}
 		}
+		await fetch('https://espsr360.vtt.fi/freshair/api/category/full', {
+			method: 'POST',
+			body: JSON.stringify({
+				uuid: quiz.uuid,
+				answers
+			})
+		});
 
 		storage_pushSession(timestamp, s.log, 'assessmentSession');
 	};
