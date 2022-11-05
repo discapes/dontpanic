@@ -14,16 +14,18 @@
 	--column-margin-top: 4rem;
 	font-family: var(--font-body);
 	color: var(--color-text);
+
 }
 
 body {
-	min-height: 100vh;
 	margin: 0;
-	background-attachment: fixed;
+	background-size: cover;
+	overflow: auto;
 	background-color: whitesmoke;
-	/* background-color: var(--color-bg-1); */
+	background-image: url("https://media.istockphoto.com/photos/cream-blurred-christmas-lights-background-design-effect-focus-happy-picture-id1286255489?b=1&k=20&m=1286255489&s=170667a&w=0&h=eC_J2iDRLex3yBGm0basd3FjjZIThDxdIQdBbjI4-EA=");
+	/*background-color: var(--color-bg-1); 
 	background-size: 100vw 100vh;
-	/* background-image: radial-gradient(50% 50% at 50% 50%,
+	background-image: radial-gradient(50% 50% at 50% 50%,
 			rgba(255, 255, 255, 0.75) 0%,
 			rgba(255, 255, 255, 0) 100%),
 		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%); */
@@ -46,6 +48,25 @@ a {
 
 a:hover {
 	text-decoration: underline;
+}
+
+.mainbuttons a {
+	cursor: pointer;
+	flex-grow: 1;
+	border-radius: 5%;
+	padding: 2%;
+	text-decoration: none;
+	font-size: large;
+	font-weight: 500;
+	text-align: center;
+	opacity: 0.8;
+	color: rgb(48, 48, 48);
+	background-color: rgba(243, 243, 243, 0.8);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mainbuttons a:hover {
+	background-color: rgb(252, 252, 252);
 }
 
 h1 {
@@ -75,7 +96,7 @@ pre {
 
 .text-column {
 	display: flex;
-	max-width: 48rem;
+	/*	max-width: 48rem; */
 	flex: 0.6;
 	flex-direction: column;
 	justify-content: center;
