@@ -8,8 +8,8 @@ export let data = [
 				qna: [
 					{
 						type: 'foo',
-						q: 'afasdf',
-						a: 'asdsaf',
+						q: 'abcsdaf',
+						a: 'answer aoso dasf',
 						flags: {}
 					}
 				],
@@ -22,7 +22,7 @@ export let data = [
 					{
 						type: 'foo',
 						q: 'afasdf',
-						a: 'asdsaf',
+						a: 'answer to asdsaf',
 						flags: {}
 					}
 				],
@@ -39,7 +39,9 @@ function ISODate() {
 
 export function storage_pushSession(timestamp, log, type) {
 	const today =
-		data.at(-1).date === ISODate() ? data.at(-1) : data.push({ date: ISODate(), sessions: [] });
+		data.at(-1).date === ISODate()
+			? data.at(-1)
+			: (data.push({ date: ISODate(), sessions: [] }), data.at(-1));
 
 	today.sessions.push({
 		timestamp,

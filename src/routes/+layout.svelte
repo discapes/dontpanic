@@ -12,7 +12,7 @@
 	</main>
 
 	<footer>
-		<p>Don't Panic! by <a href="https://kit.svelte.dev">&lt;our team&gt;</a>.</p>
+		<p>Made with love by InMind ©️ 2022</p>
 	</footer>
 </div>
 

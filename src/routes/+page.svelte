@@ -19,40 +19,12 @@
 		</span>
 	</h1>
 
-	<div class="flex justify-start flex-wrap p-10 w-full max-w-[600px] gap-10 px-32">
-		<a
-			href="/panic"
-			class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink"
-		>
-			Panic button
-		</a>
-		<a
-			href="/bot?assessment"
-			class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink"
-		>
-			Do an assessment
-		</a>
-		<a
-			href="/bot?journaling"
-			class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink"
-		>
-			Journaling
-		</a>
-		<a
-			class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink"
-			href="/bot?log"
-		>
-			Chat log
-		</a>
-		<a
-			class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink"
-			href="/about"
-		>
-			About us
-		</a>
-		<a class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink">
-			Settings
-		</a>
+	<div class="mainbuttons flex justify-start flex-wrap p-10 w-full max-w-[600px] gap-10 px-32">
+		<a href="/bot?assessment"> Quick tests ✎ </a>
+		<a class="panic" href="/panic"> Panic! </a>
+		<a href="/bot?journaling"> My Journal 🗒️ </a>
+		<a href="/about"> Upgrade your mind 💎 </a>
+		<a href="/marketplace"> Online therapy 🎔 </a>
 	</div>
 
 	<div class="-mb-10 -mt-5">
@@ -61,6 +33,31 @@
 </section>
 
 <style>
+	.mainbuttons a {
+		@apply cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50;
+		text-decoration: none;
+		color: white;
+		background-color: #d9d9d9;
+	}
+
+	.mainbuttons a:hover {
+		@apply cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50;
+		text-decoration: none;
+		color: white;
+		background-color: #bfbfbf;
+	}
+
+	.panic {
+		@apply cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50;
+		text-decoration: none;
+		color: white;
+		background-color: red;
+	}
+
+	body {
+		background-color: white;
+	}
+
 	section {
 		display: flex;
 		flex-direction: column;

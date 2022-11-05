@@ -5,6 +5,7 @@
 	import { faUsers, faCompressArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 	import { getSession, getAssessmentSession } from '$lib/session';
 	import { onMount } from 'svelte';
+	import { data } from '$lib/storage';
 
 	let nameMe = 'Miika';
 	let profilePicMe =
@@ -15,37 +16,37 @@
 		'https://isaca-gwdc.org/wp-content/uploads/2016/12/male-profile-image-placeholder.png';
 
 	let messages = [
-		{
-			messageId: 416,
-			message: 'abc',
-			timestamp: 1587139022488.826,
-			sentByMe: false,
-			timeRead: 1587139025367.015
-		},
-		{
-			messageId: 417,
-			message: 'test',
-			timestamp: 1587139034294.678,
-			sentByMe: true,
-			timeRead: 1587139048713.461
-		}
+		// {
+		// 	messageId: 416,
+		// 	message: 'abc',
+		// 	timestamp: 1587139022488.826,
+		// 	sentByMe: false,
+		// 	timeRead: 1587139025367.015
+		// },
+		// {
+		// 	messageId: 417,
+		// 	message: 'test',
+		// 	timestamp: 1587139034294.678,
+		// 	sentByMe: true,
+		// 	timeRead: 1587139048713.461
+		// }
 	];
 
 	let todayMessages = [
-		{
-			messageId: 420,
-			message: 'teeeeest',
-			timestamp: 1587139349155.217,
-			sentByMe: false,
-			timeRead: 1587139359024.353
-		},
-		{
-			messageId: 426,
-			message: 'asdf',
-			timestamp: 1587577393781.811,
-			sentByMe: true,
-			timeRead: 1587686514958.049
-		}
+		// {
+		// 	messageId: 420,
+		// 	message: 'teeeeest',
+		// 	timestamp: 1587139349155.217,
+		// 	sentByMe: false,
+		// 	timeRead: 1587139359024.353
+		// },
+		// {
+		// 	messageId: 426,
+		// 	message: 'asdf',
+		// 	timestamp: 1587577393781.811,
+		// 	sentByMe: true,
+		// 	timeRead: 1587686514958.049
+		// }
 	];
 	let mid = 500;
 
@@ -59,10 +60,36 @@
 		const dc = document.querySelector('.direct-chat-messages');
 		setTimeout(() => (dc.scrollTop = dc?.scrollHeight), 0);
 	}
-
-	const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
 	onMount(async () => {
+		if (window.location.search.includes('log')) {
+			console.log(data);
+			todayMessages = data
+				.flatMap((day) => day.sessions)
+				.flatMap((s) => s.qna)
+				.flatMap((qna) => {
+					const arr = [
+						{
+							messageId: mid++,
+							message: qna.q,
+							timestamp: Date.now(),
+							sentByMe: false,
+							timeRead: 1587686514958.049
+						}
+					];
+					if (qna.type != 'say')
+						arr.push({
+							messageId: mid++,
+							message: qna.a,
+							timestamp: Date.now(),
+							sentByMe: true,
+							timeRead: 1587686514958.049
+						});
+					return arr;
+				});
+			console.log(todayMessages);
+			return;
+		}
+
 		const session = window.location.search.includes('assessment')
 			? getAssessmentSession()
 			: getSession();

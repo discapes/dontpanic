@@ -110,13 +110,13 @@ export function getAssessmentSession() {
 				answers.push({ uuid: q.uuid, value: res });
 			}
 		}
-		await fetch('https://espsr360.vtt.fi/freshair/api/category/full', {
-			method: 'POST',
-			body: JSON.stringify({
-				uuid: quiz.uuid,
-				answers
-			})
-		});
+		// await fetch('https://espsr360.vtt.fi/freshair/api/category/full', {
+		// 	method: 'POST',
+		// 	body: JSON.stringify({
+		// 		uuid: quiz.uuid,
+		// 		answers
+		// 	})
+		// });
 
 		storage_pushSession(timestamp, s.log, 'assessmentSession');
 	};
@@ -127,6 +127,8 @@ async function eveningSession() {}
 async function defaultSession(msgr) {
 	return await morningSession(msgr);
 }
+
+export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export function getSession() {
 	const SESSIONS = {

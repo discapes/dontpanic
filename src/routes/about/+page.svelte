@@ -3,11 +3,11 @@
 </script>
 
 <svelte:head>
-	<title>About</title>
-	<meta name="description" content="About this app" />
+	<title>Upgrade your mind</title>
+	<meta name="description" content="Upgrade your mind" />
 </svelte:head>
 
 <div class="text-column">
-	<h2 class="text-center">About us</h2>
+	<h2>About us</h2>
 	<Lorem />
 </div>
