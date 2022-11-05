@@ -26,10 +26,16 @@
 		>
 			Panic button
 		</a>
-		<a class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink">
+		<a
+			href="/bot?assessment"
+			class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink"
+		>
 			Do an assessment
 		</a>
-		<a class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink">
+		<a
+			href="/bot?journaling"
+			class="cursor-pointer basis-auto grow rounded p-5 hover:bg-rose-200 bg-rose-200/50 nolink"
+		>
 			Journaling
 		</a>
 		<a
