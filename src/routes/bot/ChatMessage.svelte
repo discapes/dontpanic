@@ -56,7 +56,7 @@
 				{#if extraButtons}
 					<div class="flex gap-3 p-1">
 						{#each extraButtons as btn}
-							{#if !selected}
+							{#if selected == undefined}
 								<button
 									on:click={() => dispatch('select', btn)}
 									class="rounded border-0 p-1 px-2 hover:bg-white">{btn}</button

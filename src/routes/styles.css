@@ -19,10 +19,13 @@
 
 body {
 	margin: 0;
+	min-height: 100vh;
 	background-size: cover;
+	background-position: center;
 	overflow: auto;
 	background-color: whitesmoke;
-	background-image: url("https://media.istockphoto.com/photos/cream-blurred-christmas-lights-background-design-effect-focus-happy-picture-id1286255489?b=1&k=20&m=1286255489&s=170667a&w=0&h=eC_J2iDRLex3yBGm0basd3FjjZIThDxdIQdBbjI4-EA=");
+	background-image: url("/background.jpg");
+	/* background-image: url("https://media.istockphoto.com/photos/cream-blurred-christmas-lights-background-design-effect-focus-happy-picture-id1286255489?b=1&k=20&m=1286255489&s=170667a&w=0&h=eC_J2iDRLex3yBGm0basd3FjjZIThDxdIQdBbjI4-EA="); */
 	/*background-color: var(--color-bg-1); 
 	background-size: 100vw 100vh;
 	background-image: radial-gradient(50% 50% at 50% 50%,
@@ -53,8 +56,8 @@ a:hover {
 .mainbuttons a {
 	cursor: pointer;
 	flex-grow: 1;
-	border-radius: 5%;
-	padding: 2%;
+	border-radius: 5px;
+	padding: 10px;
 	text-decoration: none;
 	font-size: large;
 	font-weight: 500;

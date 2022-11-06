@@ -3,7 +3,7 @@
 	import TodayDivider from './TodayDivider.svelte';
 	import Fa from 'svelte-fa';
 	import { faUsers, faCompressArrowsAlt } from '@fortawesome/free-solid-svg-icons';
-	import { getSession, getAssessmentSession } from '$lib/session';
+	import { getSession, getAssessmentSession, delay } from '$lib/session';
 	import { onMount } from 'svelte';
 	import { data } from '$lib/storage';
 
@@ -96,7 +96,7 @@
 		console.log({ session });
 		await session({
 			async say(msg) {
-				await delay(1000);
+				await delay(500);
 				todayMessages = [
 					...todayMessages,
 					{

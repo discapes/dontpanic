@@ -1,4 +1,5 @@
-export let data = localStorage.getItem('log') ? JSON.parse(localStorage.getItem('log')) : [];
+export let data = [];
+//localStorage.getItem('log') ? JSON.parse(localStorage.getItem('log')) :
 // 	{
 // 		date: 'YYYY-MM-DD',
 // 		sessions: [
@@ -39,7 +40,7 @@ function ISODate() {
 
 export function storage_pushSession(timestamp, log, type) {
 	const today =
-		data.at(-1).date === ISODate()
+		data.at(-1)?.date === ISODate()
 			? data.at(-1)
 			: (data.push({ date: ISODate(), sessions: [] }), data.at(-1));
 

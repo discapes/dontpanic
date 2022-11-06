@@ -86,9 +86,12 @@ export function getAssessmentSession() {
 	return async function (msgr) {
 		const timestamp = Date.now();
 		const s = new Session(msgr);
-		const opts = await fetch('https://espsr360.vtt.fi/freshair/api/category/full').then((res) =>
+
+		console.log('fetching...');
+		const opts = await fetch('https://espsr360.vtt.fi/freshair/api/survey/full').then((res) =>
 			res.json()
 		);
+		console.log(opts);
 		const assmt = await s.askFrom(
 			'Which assessment would you like to do?',
 			opts.map((f) => f.shortName)
@@ -107,16 +110,14 @@ export function getAssessmentSession() {
 				};
 				const opts = range(q.min, q.max);
 				const res = await s.askFrom(q.text, opts);
-				answers.push({ uuid: q.uuid, value: res });
+				answers.push({ questionUuid: q.uuid, value: res });
 			}
 		}
-		// await fetch('https://espsr360.vtt.fi/freshair/api/category/full', {
-		// 	method: 'POST',
-		// 	body: JSON.stringify({
-		// 		uuid: quiz.uuid,
-		// 		answers
-		// 	})
-		// });
+		const res = await fetch(`/bot?uuid=${quiz.uuid}`, {
+			method: 'POST',
+			body: JSON.stringify(answers)
+		});
+		console.log(await res.json());
 
 		storage_pushSession(timestamp, s.log, 'assessmentSession');
 	};

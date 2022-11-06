@@ -31,13 +31,13 @@
 		{#key instruction}
 			<div
 				class="absolute inset-0 mt-10 font-serif text-2xl flex justify-center text-center"
-				transition:fade={{ duration: 1000 }}
+				transition:fade|local={{ duration: 1000 }}
 			>
 				{instruction}
 			</div>
 		{/key}
 		{#key extra}
-			<p class=" mt-32 font-serif text-sm text-center" transition:fade={{ duration: 3000 }}>
+			<p class=" mt-32 font-serif text-sm text-center" transition:fade|local={{ duration: 3000 }}>
 				{extra}
 			</p>
 		{/key}
@@ -47,32 +47,29 @@
 <style>
 	.anim-circle {
 		color: transparent;
-		/* position: absolute; */
-
+		--circle-color-tp: rgba(255, 128, 31, 0.3);
 		top: 20%;
-		/* left: 50%; */
-		/* transform: translate(-50%, -50%); */
 		width: 70px;
 		height: 70px;
 		border-radius: 50%;
-		background: rgba(188, 237, 243, 0.889);
+		background: rgba(255, 128, 31, 0.889);
 		animation: breathe 10s linear infinite;
 	}
 	@keyframes breathe {
 		0% {
-			box-shadow: 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 30px rgba(188, 237, 243, 0.3),
-				0 0 0 45px rgba(188, 237, 243, 0.3), 0 0 0 60px rgba(188, 237, 243, 0.3),
-				0 0 0 75px rgba(188, 237, 243, 0.3);
+			box-shadow: 0 0 0 15px var(--circle-color-tp), 0 0 0 30px var(--circle-color-tp),
+				0 0 0 45px var(--circle-color-tp), 0 0 0 60px var(--circle-color-tp),
+				0 0 0 75px var(--circle-color-tp);
 		}
 		50% {
-			box-shadow: 0 0 0 25px rgba(188, 237, 243, 0.3), 0 0 0 50px rgba(188, 237, 243, 0.3),
-				0 0 0 75px rgba(188, 237, 243, 0.3), 0 0 0 100px rgba(188, 237, 243, 0.3),
-				0 0 0 125px rgba(188, 237, 243, 0.3);
+			box-shadow: 0 0 0 25px var(--circle-color-tp), 0 0 0 50px var(--circle-color-tp),
+				0 0 0 75px var(--circle-color-tp), 0 0 0 100px var(--circle-color-tp),
+				0 0 0 125px var(--circle-color-tp);
 		}
 		100% {
-			box-shadow: 0 0 0 15px rgba(188, 237, 243, 0.3), 0 0 0 30px rgba(188, 237, 243, 0.3),
-				0 0 0 45px rgba(188, 237, 243, 0.3), 0 0 0 60px rgba(188, 237, 243, 0.3),
-				0 0 0 75px rgba(188, 237, 243, 0.3);
+			box-shadow: 0 0 0 15px var(--circle-color-tp), 0 0 0 30px var(--circle-color-tp),
+				0 0 0 45px var(--circle-color-tp), 0 0 0 60px var(--circle-color-tp),
+				0 0 0 75px var(--circle-color-tp);
 		}
 	}
 </style>

@@ -12,12 +12,12 @@
 <section class="flex justify-center ">
 	<img
 		src="inmind.png"
-		class="rounded-full m-10 border-4 border-solid border-white w-32 h-32"
+		class="rounded-full m-10 border-3 border-solid border-grey w-32 h-32"
 		alt="Welcome"
 	/>
 
 	<div
-		class="mainbuttons flex flex-col sm:flex-row sm:flex-wrap justify-center items-center w-full max-w-[600px] gap-10 p-10"
+		class="mainbuttons flex flex-col sm:flex-row sm:flex-wrap justify-center items-center max-w-[600px] gap-10 p-10"
 	>
 		<a href="/bot?journaling"> My Journal <span>🗒️</span> </a>
 		<a class="panic" href="/panic"> Panic! </a>
@@ -34,11 +34,6 @@
 	}
 
 	.panic {
-		cursor: pointer;
-		flex-grow: 1;
-		border-radius: 5%;
-		padding: 2%;
-		text-decoration: none;
 		color: white;
 		background-color: rgba(255, 128, 31, 0.8) !important;
 	}

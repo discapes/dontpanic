@@ -4,14 +4,14 @@
 	import './normalize.css';
 </script>
 
-<div class="app">
+<div class="app h-full flex flex-col sm:h-screen">
 	<!-- <Header /> -->
 
 	<main class="">
 		<slot />
 	</main>
 
-	<footer>
+	<footer class="h-full">
 		<p>Made with love by InMind ©️ 2022</p>
 	</footer>
 </div>
@@ -20,24 +20,24 @@
 	.app {
 		display: flex;
 		flex-direction: column;
-		min-height: 100vh;
 	}
 
 	main {
-		flex: 1;
+		/* flex: 1;
 		display: flex;
 		flex-direction: column;
 		padding: 1rem;
 		width: 100%;
 		max-width: 64rem;
 		margin: 0 auto;
-		box-sizing: border-box;
+		box-sizing: border-box; */
 	}
 
 	footer {
 		display: flex;
+		color: rgba(255, 255, 255, 0.7);
 		flex-direction: column;
-		justify-content: center;
+		justify-content: end;
 		align-items: center;
 		padding: 12px;
 	}
