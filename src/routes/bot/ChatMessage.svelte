@@ -54,12 +54,12 @@
 			<span class="mr-auto"
 				>{message}
 				{#if extraButtons}
-					<div class="flex gap-3 p-1">
+					<div class="flex flex-wrap gap-3 p-1">
 						{#each extraButtons as btn}
 							{#if selected == undefined}
 								<button
 									on:click={() => dispatch('select', btn)}
-									class="rounded border-0 p-1 px-2 hover:bg-white">{btn}</button
+									class="rounded border-0 p-1 px-2 bg-white/70 hover:bg-white">{btn}</button
 								>
 							{:else}
 								<button
@@ -96,8 +96,8 @@
 		border-radius: 5px;
 		position: relative;
 		padding: 5px 10px;
-		background: #d2d6de;
-		border: 1px solid #d2d6de;
+		background: rgba(179, 242, 221, 0.7);
+		border: 1px solid rgba(179, 242, 221, 0.7);
 		margin: 2px 0 5px 50px;
 		color: #444;
 		margin-right: 50px;
@@ -108,7 +108,7 @@
 		right: 100%;
 		top: 15px;
 		border: solid transparent;
-		border-right-color: #d2d6de;
+		border-right-color: rgba(179, 242, 221, 0.7);
 		content: ' ';
 		height: 0;
 		width: 0;

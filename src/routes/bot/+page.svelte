@@ -1,19 +1,18 @@
 <script>
 	import ChatMessage from './ChatMessage.svelte';
-	import TodayDivider from './TodayDivider.svelte';
-	import Fa from 'svelte-fa';
-	import { faUsers, faCompressArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+	import { page } from '$app/stores';
 	import { getSession, getAssessmentSession, delay } from '$lib/session';
 	import { onMount } from 'svelte';
 	import { data } from '$lib/storage';
+	import '../(app)/styles.css';
 
 	let nameMe = 'Miika';
 	let profilePicMe =
-		'https://static.vecteezy.com/system/resources/previews/002/640/730/non_2x/default-avatar-placeholder-profile-icon-male-vector.jpg';
-
-	let nameChatPartner = 'Botty McBotFace';
-	let profilePicChatPartner =
+		// 'https://static.vecteezy.com/system/resources/previews/002/640/730/non_2x/default-avatar-placeholder-profile-icon-male-vector.jpg';
 		'https://isaca-gwdc.org/wp-content/uploads/2016/12/male-profile-image-placeholder.png';
+
+	let nameChatPartner = 'InMind AI';
+	let profilePicChatPartner = '/inmind.png';
 
 	let messages = [
 		// {
@@ -51,14 +50,15 @@
 	let mid = 500;
 
 	let resolveInput;
+	let waitingForFreeText = false;
 	async function getInput() {
 		const inputPromise = new Promise((res) => (resolveInput = res));
 		return await inputPromise;
 	}
 
 	function scrollBottom() {
-		const dc = document.querySelector('.direct-chat-messages');
-		setTimeout(() => (dc.scrollTop = dc?.scrollHeight), 0);
+		const dc = document.querySelector('.direct-chat-messages').parentElement;
+		setTimeout(() => (dc.scrollTop = dc?.scrollHeight), 1);
 	}
 	onMount(async () => {
 		if (window.location.search.includes('log')) {
@@ -71,7 +71,7 @@
 						{
 							messageId: mid++,
 							message: qna.q,
-							timestamp: Date.now(),
+							timestamp: qna.timestamp,
 							sentByMe: false,
 							timeRead: 1587686514958.049
 						}
@@ -80,7 +80,7 @@
 						arr.push({
 							messageId: mid++,
 							message: qna.a,
-							timestamp: Date.now(),
+							timestamp: 0,
 							sentByMe: true,
 							timeRead: 1587686514958.049
 						});
@@ -93,7 +93,7 @@
 		const session = window.location.search.includes('assessment')
 			? getAssessmentSession()
 			: getSession();
-		console.log({ session });
+		// console.log({ session });
 		await session({
 			async say(msg) {
 				await delay(500);
@@ -117,12 +117,7 @@
 					res = await getInput();
 				} while (!['Yes', 'No'].includes(res));
 
-				todayMessages[todayMessages.length - 1] = {
-					...todayMessages.at(-1),
-					selected: res
-				};
-
-				return res === 'y' || res === 'yes';
+				return res === 'Yes';
 			},
 			async askFrom(opts) {
 				todayMessages.at(-1).extraButtons = opts;
@@ -131,11 +126,6 @@
 				do {
 					res = await getInput();
 				} while (!opts.includes(res));
-
-				todayMessages[todayMessages.length - 1] = {
-					...todayMessages.at(-1),
-					selected: res
-				};
 
 				return res;
 			},
@@ -148,10 +138,6 @@
 					console.log({ res });
 				} while (!['👍', '🤷', '👎'].includes(res));
 
-				todayMessages[todayMessages.length - 1] = {
-					...todayMessages.at(-1),
-					selected: res
-				};
 				return res;
 			}
 		});
@@ -172,7 +158,7 @@
 			];
 			this.reset();
 			scrollBottom();
-			if (resolveInput) resolveInput(msg);
+			if (resolveInput && waitingForFreeText) resolveInput(msg);
 		}
 	}
 </script>
@@ -183,58 +169,68 @@
 		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	/>
 </svelte:head>
-
-<div class="card card-danger direct-chat direct-chat-danger">
-	<div class="card-header">
-		<div class="card-tools d-flex">
-			<img class="contacts-img" src={profilePicChatPartner} alt="profilePic" />
-			<span class="contacts-name">{nameChatPartner}</span>
-			<span class="mr-auto" />
-			<button type="button" class="btn btn-tool" title="Contacts"><Fa icon={faUsers} /></button>
-			<button type="button" class="btn btn-tool"><Fa icon={faCompressArrowsAlt} /></button>
+<div class="p-10 h-full">
+	<div class="card card-danger direct-chat direct-chat-danger h-full w-full">
+		<div class="card-header">
+			<div class="card-tools d-flex">
+				<img class="contacts-img" src={profilePicChatPartner} alt="profilePic" />
+				<span class="contacts-name">{nameChatPartner}</span>
+				<span class="mr-auto" />
+				<a type="button" href="/" class="btn btn-tool" title="Exit"
+					><img class="w-5 h-5" src="https://cdn-icons-png.flaticon.com/512/320/320140.png" /></a
+				>
+				{#if !$page.url.searchParams.toString().includes('log')}
+					<a href="/bot?log" target="_blank" type="button" class="btn btn-tool">
+						<img class="w-5 h-5" src="https://cdn-icons-png.flaticon.com/512/32/32223.png" />
+					</a>
+				{/if}
+			</div>
 		</div>
-	</div>
-	<div class="card-body">
-		<div class="direct-chat-messages">
-			{#each messages as message}
-				<ChatMessage
-					{nameMe}
-					{profilePicMe}
-					{nameChatPartner}
-					{profilePicChatPartner}
-					message={message.message}
-					timestamp={message.timestamp}
-					sentByMe={message.sentByMe}
-					timeRead={message.timeRead}
-				/>
-			{/each}
+		<div class="card-body">
+			<div class="direct-chat-messages">
+				{#each messages as message}
+					<ChatMessage
+						{nameMe}
+						{profilePicMe}
+						{nameChatPartner}
+						{profilePicChatPartner}
+						message={message.message}
+						timestamp={message.timestamp}
+						sentByMe={message.sentByMe}
+						timeRead={message.timeRead}
+					/>
+				{/each}
 
-			<TodayDivider />
-			{#each todayMessages as todayMessage}
-				<ChatMessage
-					on:select={(e) => resolveInput?.(e.detail)}
-					{nameMe}
-					{profilePicMe}
-					{nameChatPartner}
-					{profilePicChatPartner}
-					message={todayMessage.message}
-					timestamp={todayMessage.timestamp}
-					sentByMe={todayMessage.sentByMe}
-					timeRead={todayMessage.timeRead}
-					isToday={true}
-					extraButtons={todayMessage.extraButtons}
-					selected={todayMessage.selected}
-				/>
-			{/each}
+				<!-- <TodayDivider /> -->
+				{#each todayMessages as todayMessage}
+					<ChatMessage
+						on:select={(e) => {
+							todayMessage.selected = e.detail;
+							resolveInput?.(e.detail);
+						}}
+						{nameMe}
+						{profilePicMe}
+						{nameChatPartner}
+						{profilePicChatPartner}
+						message={todayMessage.message}
+						timestamp={todayMessage.timestamp}
+						sentByMe={todayMessage.sentByMe}
+						timeRead={todayMessage.timeRead}
+						isToday={true}
+						extraButtons={todayMessage.extraButtons}
+						selected={todayMessage.selected}
+					/>
+				{/each}
+			</div>
 		</div>
-	</div>
-	<div class="card-footer">
-		<form class="input-group" on:submit|preventDefault={kd}>
-			<input type="text" name="msg" placeholder="Type Message ..." class="form-control" />
-			<span class="input-group-append">
-				<input type="submit" class="btn btn-primary" value="Send" />
-			</span>
-		</form>
+		<div class="card-footer">
+			<form class="input-group" on:submit|preventDefault={kd}>
+				<input type="text" name="msg" placeholder="Type Message ..." class="form-control" />
+				<span class="input-group-append">
+					<input type="submit" class="btn btn-primary" value="Send" />
+				</span>
+			</form>
+		</div>
 	</div>
 </div>
 
@@ -248,7 +244,7 @@
 	.direct-chat-messages {
 		-webkit-transform: translate(0, 0);
 		transform: translate(0, 0);
-		height: 400px;
+		/* height: 350px; */
 		overflow: auto;
 		padding: 10px;
 		transition: -webkit-transform 0.5s ease-in-out;

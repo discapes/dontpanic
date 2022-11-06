@@ -12,14 +12,17 @@ Session.prototype = {
 		this.msgr.say(s);
 		this.log.push({
 			type: 'msg',
-			q: s
+			q: s,
+			timestamp: Date.now()
 		});
 	},
 	async askYN(q) {
 		await this.msgr.say(q);
+		const timestamp = Date.now();
 		const a = await this.msgr.askYN();
 		this.log.push({
 			type: 'YN',
+			timestamp,
 			q,
 			a,
 			flags: []
@@ -28,9 +31,11 @@ Session.prototype = {
 	},
 	async askFrom(q, opts) {
 		await this.msgr.say(q);
+		const timestamp = Date.now();
 		const a = await this.msgr.askFrom(opts);
 		this.log.push({
 			type: `<${opts}>`,
+			timestamp,
 			q,
 			a,
 			flags: []
@@ -42,9 +47,11 @@ Session.prototype = {
 	},
 	async askTT(q) {
 		await this.msgr.say(q);
+		const timestamp = Date.now();
 		const a = await this.msgr.askTT();
 		this.log.push({
 			type: 'TT',
+			timestamp,
 			q,
 			a,
 			flags: []
@@ -82,48 +89,52 @@ async function morningSession(msgr) {
 	storage_pushSession(timestamp, s.log, 'morningSession');
 }
 
+async function eveningSession() {}
+
 export function getAssessmentSession() {
 	return async function (msgr) {
-		const timestamp = Date.now();
-		const s = new Session(msgr);
+		let doAgain;
+		do {
+			const timestamp = Date.now();
+			const s = new Session(msgr);
 
-		console.log('fetching...');
-		const opts = await fetch('https://espsr360.vtt.fi/freshair/api/survey/full').then((res) =>
-			res.json()
-		);
-		console.log(opts);
-		const assmt = await s.askFrom(
-			'Which assessment would you like to do?',
-			opts.map((f) => f.shortName)
-		);
+			console.log('fetching...');
+			const opts = await fetch('https://espsr360.vtt.fi/freshair/api/survey/full').then((res) =>
+				res.json()
+			);
+			console.log(opts);
+			const assmt = await s.askFrom(
+				'Hi, which assessment would you like to do?',
+				opts.map((f) => f.shortName)
+			);
 
-		const quiz = opts.find((f) => f.shortName == assmt);
-		const answers = [];
-		for (const q of quiz.questions) {
-			if (q.type == 'integer') {
-				const range = (min, max) => {
-					let list = [];
-					for (let i = min; i <= max; i++) {
-						list.push(i);
-					}
-					return list;
-				};
-				const opts = range(q.min, q.max);
-				const res = await s.askFrom(q.text, opts);
-				answers.push({ questionUuid: q.uuid, value: res });
+			const quiz = opts.find((f) => f.shortName == assmt);
+			const answers = [];
+			for (const q of quiz.questions) {
+				if (q.type == 'integer') {
+					const range = (min, max) => {
+						let list = [];
+						for (let i = min; i <= max; i++) {
+							list.push(i);
+						}
+						return list;
+					};
+					const opts = range(q.min, q.max);
+					const res = await s.askFrom(q.text, opts);
+					answers.push({ questionUuid: q.uuid, value: res });
+				}
 			}
-		}
-		const res = await fetch(`/bot?uuid=${quiz.uuid}`, {
-			method: 'POST',
-			body: JSON.stringify(answers)
-		});
-		console.log(await res.json());
-
-		storage_pushSession(timestamp, s.log, 'assessmentSession');
+			const res = await fetch(`/bot?uuid=${quiz.uuid}`, {
+				method: 'POST',
+				body: JSON.stringify(answers)
+			}).then((res) => res.json());
+			s.say(`${res.percentagePoint.toFixed(0)}% - ${res.suggestion.text}`);
+			doAgain = await s.askYN('Would you like to take another assessment?');
+			console.log(doAgain);
+			storage_pushSession(timestamp, s.log, 'assessmentSession');
+		} while (doAgain);
 	};
 }
-
-async function eveningSession() {}
 
 async function defaultSession(msgr) {
 	return await morningSession(msgr);
@@ -136,10 +147,11 @@ export function getSession() {
 		'8-12': morningSession
 	};
 	const hour = new Date().getHours();
-	return (
+	let s =
 		Object.entries(SESSIONS).find(([k, v]) => {
 			const [b, e] = k.split('-');
 			if (hour >= b && hour <= e) return true;
-		}) ?? defaultSession
-	);
+		}) ?? defaultSession;
+	if (s.length) s = s[1];
+	return s;
 }
