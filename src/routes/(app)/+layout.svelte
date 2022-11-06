@@ -14,13 +14,15 @@
 
 	<footer class="h-full">
 		<p>Made with love by InMind ©️ 2022</p>
-		<a class="contents " href={$page.url.toString().includes('about') ? '/' : '/about'}>
-			<img
-				style="filter: invert(1);"
-				class="absolute right-3 opacity-80 w-10 h-10"
-				src="/back-icon.svg"
-			/></a
-		>
+		{#if $page.url.pathname != '/'}
+			<a class="contents " href={$page.url.toString().includes('about') ? '/' : '/about'}>
+				<img
+					style="filter: invert(1);"
+					class="absolute right-3 opacity-80 w-10 h-10"
+					src="/back-icon.svg"
+				/></a
+			>
+		{/if}
 	</footer>
 </div>
 
