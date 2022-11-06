@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center justify-center">
+<div class="flex flex-col items-center justify-center mt-10">
 	<p class="max-w-prose">
 		Your mind is all you have. Your mind determines every action taken and not taken. It is the
 		place where emotions and qualities like happiness, joy, relaxation, creativity, compassion,

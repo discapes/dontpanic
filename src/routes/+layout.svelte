@@ -4,7 +4,7 @@
 	import './normalize.css';
 </script>
 
-<div class="app h-full flex flex-col sm:h-screen">
+<div class="app h-full overflow-auto flex flex-col sm:h-screen">
 	<!-- <Header /> -->
 
 	<main class="">
