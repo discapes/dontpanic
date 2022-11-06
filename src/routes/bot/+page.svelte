@@ -62,8 +62,11 @@
 	}
 	onMount(async () => {
 		if (window.location.search.includes('log')) {
-			console.log(data);
-			todayMessages = data
+			let _data;
+			if (localStorage.getItem('log')) _data = JSON.parse(localStorage.getItem('log'));
+			else _data = data;
+			console.log(_data);
+			todayMessages = _data
 				.flatMap((day) => day.sessions)
 				.flatMap((s) => s.qna)
 				.flatMap((qna) => {

@@ -22,7 +22,7 @@
 		<a href="/bot?journaling"> My Journal <span>🗒️</span> </a>
 		<a class="panic" href="/panic"> Panic! </a>
 		<a href="/bot?assessment"> Quick tests <span>✎</span> </a>
-		<a href="/about"> Upgrade your mind <span>💎</span> </a>
+		<a href="/about"> Upgrade your mind&nbsp;<span>💎</span> </a>
 		<a href="/marketplace"> Online therapy <span>🎔</span> </a>
 	</div>
 </section>

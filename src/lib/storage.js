@@ -1,5 +1,4 @@
 export let data = [];
-//localStorage.getItem('log') ? JSON.parse(localStorage.getItem('log')) :
 // 	{
 // 		date: 'YYYY-MM-DD',
 // 		sessions: [
