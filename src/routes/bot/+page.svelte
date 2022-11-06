@@ -68,7 +68,7 @@
 			console.log(_data);
 			todayMessages = _data
 				.flatMap((day) => day.sessions)
-				.flatMap((s) => s.qna)
+				.flatMap((s) => s.log)
 				.flatMap((qna) => {
 					const arr = [
 						{
@@ -79,7 +79,7 @@
 							timeRead: 1587686514958.049
 						}
 					];
-					if (qna.type != 'say')
+					if (qna.type != 'msg')
 						arr.push({
 							messageId: mid++,
 							message: qna.a,

@@ -24,7 +24,7 @@ Session.prototype = {
 			type: 'YN',
 			timestamp,
 			q,
-			a,
+			a: a ? 'Yes' : 'No',
 			flags: []
 		});
 		return a;
