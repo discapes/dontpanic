@@ -9,7 +9,7 @@
 	<meta name="description" content="InMind" />
 </svelte:head>
 
-<section class="flex justify-center ">
+<section class="flex justify-center">
 	<img
 		src="inmind.png"
 		class="rounded-full m-10 border-3 border-solid border-grey w-32 h-32"
@@ -28,6 +28,7 @@
 </section>
 
 <style>
+	@reference "tailwindcss";
 	.mainbuttons a {
 		max-width: 200px;
 		@apply w-full sm:w-auto;

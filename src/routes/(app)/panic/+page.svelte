@@ -17,7 +17,7 @@
 		</i>
 	</div>
 	<div class="mainbuttons flex flex-col gap-3">
-		<button onclick="window.open('tel:+358925250111')"
+		<button onclick={() => window.open('tel:+358925250111')}
 			>Call the mental-health helpline <span>📞</span></button
 		>
 		<a href="/breathe"> Breathing exercise <span>🌀</span></a>
